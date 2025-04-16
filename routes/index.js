@@ -78,11 +78,75 @@ router.get('/flights', function(req, res, next) {
                 <td>${flight.airline}</td>
                 <td>${flight.departure}</td>
                 <td>${flight.destination}</td>
-                <td><a href="/flights/${flight.id}">Go to Flight</a></td>
+                <td><a href="/flights/${flight.flightNumber}">Go to Flight</a></td>
               </tr>
             `).join('')}
           </tbody>
         </table>
+      </body>
+    </html>
+  `;
+
+  res.send(html);
+});
+
+// GET API to get a specific flight by flight number
+router.get('/flights/:flightNumber', function(req, res, next) {
+  const flightNumber = req.params.flightNumber;
+  const flight = flights.find(f => f.flightNumber === flightNumber);
+
+  if (!flight) {
+    return res.status(404).send('Flight not found');
+  }
+
+  let html = `
+    <html>
+      <head>
+        <title>Flight Details</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+          }
+          h1 {
+            text-align: center;
+          }
+          table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+          }
+          th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+          }
+          th {
+            background-color: #f4f4f4;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Flight Details</h1>
+        <table>
+          <tr>
+            <th>Flight Number</th>
+            <td>${flight.flightNumber}</td>
+          </tr>
+          <tr>
+            <th>Airline</th>
+            <td>${flight.airline}</td>
+          </tr>
+          <tr>
+            <th>Departure</th>
+            <td>${flight.departure}</td>
+          </tr>
+          <tr>
+            <th>Destination</th>
+            <td>${flight.destination}</td>
+          </tr>
+        </table>
+        <a href="/flights">Back to Flights</a>
       </body>
     </html>
   `;
