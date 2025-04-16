@@ -14,7 +14,27 @@ const flights = [
   { flightNumber: 'AS200', airline: 'Alaska Airlines', destination: 'New York', departure: 'San Francisco' },
   { flightNumber: 'AS300', airline: 'Alaska Airlines', destination: 'Chicago', departure: 'Houston' }
 ];
-
+// Define a global object to store pretravel events for each flight
+const preTravelEvents = {
+  'AS100': [
+    { event: 'preorderFood', time: '6 days before', status: 'completed' },
+    { event: 'preorderFood', time: '4 days before', status: 'completed' },
+    { event: 'checkIn', time: '24 hours before', status: 'completed' },
+    { event: 'checkIn', time: '4 hours before', status: 'completed' }
+  ],
+  'AS200': [
+    { event: 'preorderFood', time: '6 days before', status: 'completed' },
+    { event: 'preorderFood', time: '4 days before', status: 'completed' },
+    { event: 'checkIn', time: '24 hours before', status: 'paused' },
+    { event: 'checkIn', time: '4 hours before', status: 'pending' }
+  ],
+  'AS300': [
+    { event: 'preorderFood', time: '6 days before', status: 'pending' },
+    { event: 'preorderFood', time: '4 days before', status: 'pending' },
+    { event: 'checkIn', time: '24 hours before', status: 'pending' },
+    { event: 'checkIn', time: '4 hours before', status: 'pending' }
+  ]
+};
 // GET API to get the list of flights
 router.get('/flights', function(req, res, next) {
 
@@ -124,6 +144,13 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           th {
             background-color: #f4f4f4;
           }
+          .events-table {
+            width: 80%;
+            margin: 20px auto;
+          }
+          .events-table th {
+            background-color: #e8f4f8;
+          }
         </style>
       </head>
       <body>
@@ -145,6 +172,29 @@ router.get('/flights/:flightNumber', function(req, res, next) {
             <th>Destination</th>
             <td>${flight.destination}</td>
           </tr>
+        </table>
+        <h2 style="text-align: center;">Pre-Travel Events</h2>
+        <table class="events-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${preTravelEvents[flight.flightNumber] ? preTravelEvents[flight.flightNumber].map(event => `
+              <tr>
+                <td>${event.event}</td>
+                <td>${event.time}</td>
+                <td>${event.status}</td>
+              </tr>
+            `).join('') : `
+              <tr>
+                <td colspan="3" style="text-align: center;">No pre-travel events available</td>
+              </tr>
+            `}
+          </tbody>
         </table>
         <a href="/flights">Back to Flights</a>
       </body>
