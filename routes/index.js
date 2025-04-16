@@ -10,21 +10,14 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 // Define a global array of flights
 const flights = [
-  { id: 1, airline: 'Alaska Airlines', destination: 'Seattle', departure: 'Los Angeles' },
-  { id: 2, airline: 'Alaska Airlines', destination: 'New York', departure: 'San Francisco' },
-  { id: 3, airline: 'Alaska Airlines', destination: 'Chicago', departure: 'Houston' }
+  { flightNumber: 'AS100', airline: 'Alaska Airlines', destination: 'Seattle', departure: 'Los Angeles' },
+  { flightNumber: 'AS200', airline: 'Alaska Airlines', destination: 'New York', departure: 'San Francisco' },
+  { flightNumber: 'AS300', airline: 'Alaska Airlines', destination: 'Chicago', departure: 'Houston' }
 ];
 
 // GET API to get the list of flights
 router.get('/flights', function(req, res, next) {
-  let tableRows = flights.map(flight => `
-    <tr>
-      <td>${flight.id}</td>
-      <td>${flight.airline}</td>
-      <td>${flight.departure}</td>
-      <td>${flight.destination}</td>
-    </tr>
-  `).join('');
+
 
   let html = `
     <html>
@@ -71,7 +64,7 @@ router.get('/flights', function(req, res, next) {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Flight Number</th>
               <th>Airline</th>
               <th>Departure</th>
               <th>Destination</th>
@@ -81,7 +74,7 @@ router.get('/flights', function(req, res, next) {
           <tbody>
             ${flights.map(flight => `
               <tr>
-                <td>${flight.id}</td>
+                <td>${flight.flightNumber}</td>
                 <td>${flight.airline}</td>
                 <td>${flight.departure}</td>
                 <td>${flight.destination}</td>
