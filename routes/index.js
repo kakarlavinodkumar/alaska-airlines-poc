@@ -21,8 +21,8 @@ router.get('/flights', function(req, res, next) {
     <tr>
       <td>${flight.id}</td>
       <td>${flight.airline}</td>
-      <td>${flight.destination}</td>
       <td>${flight.departure}</td>
+      <td>${flight.destination}</td>
     </tr>
   `).join('');
 
@@ -30,20 +30,64 @@ router.get('/flights', function(req, res, next) {
     <html>
       <head>
         <title>Flights</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+          }
+          h1 {
+            text-align: center;
+          }
+          table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+          }
+          th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+          }
+          th {
+            background-color: #f4f4f4;
+          }
+          tr:nth-child(even) {
+            background-color: #f9f9f9;
+          }
+          tr:hover {
+            background-color: #f1f1f1;
+          }
+          a {
+            color: blue;
+            text-decoration: none;
+          }
+          a:hover {
+            text-decoration: underline;
+          }
+        </style>
       </head>
       <body>
         <h1>List of Flights</h1>
-        <table border="1">
+        <table>
           <thead>
             <tr>
               <th>ID</th>
               <th>Airline</th>
-              <th>Destination</th>
               <th>Departure</th>
+              <th>Destination</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            ${tableRows}
+            ${flights.map(flight => `
+              <tr>
+                <td>${flight.id}</td>
+                <td>${flight.airline}</td>
+                <td>${flight.departure}</td>
+                <td>${flight.destination}</td>
+                <td><a href="/flights/${flight.id}">Go to Flight</a></td>
+              </tr>
+            `).join('')}
           </tbody>
         </table>
       </body>
