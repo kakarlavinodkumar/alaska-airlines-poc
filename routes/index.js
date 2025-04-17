@@ -368,6 +368,21 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
             font-weight: bold;
             margin-top: 20px;
           }
+          .back-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+          }
+          .back-button:hover {
+            background-color: #5a6268;
+          }
         </style>
         <script>
           function handleSubmit(event) {
@@ -412,6 +427,7 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
           </select>
           <button type="submit">Submit</button>
         </form>
+        <a href="/flights/${flightNumber}" class="back-button">Back to Flight Details</a>
         <div id="success-message" class="success-message"></div>
       </body>
     </html>
