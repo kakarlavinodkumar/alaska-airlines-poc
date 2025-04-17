@@ -177,6 +177,21 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           .back-button:hover {
             background-color: #0056b3;
           }
+          .status-icon {
+            font-size: 18px;
+            display: inline-block;
+            text-align: center;
+            width: 20px;
+          }
+          .status-completed {
+            color: green;
+          }
+          .status-paused {
+            color: red;
+          }
+          .status-pending {
+            color: gray;
+          }
         </style>
       </head>
       <body>
@@ -199,7 +214,19 @@ router.get('/flights/:flightNumber', function(req, res, next) {
               <tr>
                 <td>${event.event}</td>
                 <td>${event.time}</td>
-                <td>${event.status}</td>
+                <td>
+                  <span class="status-icon ${
+                    event.status === 'completed' ? 'status-completed' :
+                    event.status === 'paused' ? 'status-paused' :
+                    'status-pending'
+                  }">
+                    ${
+                      event.status === 'completed' ? '✔️' :
+                      event.status === 'paused' ? '⏸️' :
+                      '⚪'
+                    }
+                  </span>
+                </td>
               </tr>
             `).join('') : `
               <tr>
