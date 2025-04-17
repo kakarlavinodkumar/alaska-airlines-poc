@@ -377,10 +377,10 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
           <textarea id="message" name="message" rows="4" required></textarea>
           <label for="dateRange">Date Range</label>
           <input type="text" id="dateRange" name="dateRange" placeholder="e.g., 6 days before" required />
-          <label for="type">Type</label>
+          <label for="type">Departure Or Arrival</label>
           <select id="type" name="type" required>
-            <option value="preTravel">Pre-Travel</option>
-            <option value="dayOfTravel">Day of Travel</option>
+            <option value="departure">Departure</option>
+            <option value="arrival">Arrival</option>
           </select>
           <button type="submit">Submit</button>
         </form>
