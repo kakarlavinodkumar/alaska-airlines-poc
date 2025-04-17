@@ -144,6 +144,18 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           h1 {
             text-align: center;
           }
+          .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 20px;
+          }
+          .grid-item {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+          }
           .flight-header {
             text-align: center;
             margin: 20px 0;
@@ -154,8 +166,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
             margin: 5px 0;
           }
           table {
-            width: 80%;
-            margin: 20px auto;
+            width: 100%;
             border-collapse: collapse;
           }
           th, td {
@@ -165,10 +176,6 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           }
           th {
             background-color: #f4f4f4;
-          }
-          .events-table {
-            width: 80%;
-            margin: 20px auto;
           }
           .events-table th {
             background-color: #e8f4f8;
@@ -213,78 +220,84 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           <span> ${flight.flightNumber}</span>
           <span> ${flight.departure} -> ${flight.destination}</span>
         </div>
-        <h2 style="text-align: center;">Pre-Travel Events</h2>
-        <table class="events-table">
-          <thead>
-            <tr>
-              <th>Event</th>
-              <th>Time</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${preTravelEvents[flight.flightNumber] ? preTravelEvents[flight.flightNumber].map(event => `
-              <tr>
-                <td>${event.event}</td>
-                <td>${event.time}</td>
-                <td>
-                  <span class="status-icon ${
-                    event.status === 'completed' ? 'status-completed' :
-                    event.status === 'paused' ? 'status-paused' :
-                    'status-pending'
-                  }">
-                    ${
-                      event.status === 'completed' ? '✅' :
-                      event.status === 'paused' ? '<span style="color: red;">⏸</span>' :
-                      '<span style="color: red;">⚪</span>'
-                    }
-                  </span>
-                </td>
-              </tr>
-            `).join('') : `
-              <tr>
-                <td colspan="3" style="text-align: center;">No pre-travel events available</td>
-              </tr>
-            `}
-          </tbody>
-        </table>
-
-        <h2 style="text-align: center;">Day of Travel Events</h2>
-        <table class="events-table">
-          <thead>
-            <tr>
-              <th>Event</th>
-              <th>Time</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${dayOfTravelEvents[flight.flightNumber] ? dayOfTravelEvents[flight.flightNumber].map(event => `
-              <tr>
-                <td>${event.event}</td>
-                <td>${event.time}</td>
-                <td>
-                  <span class="status-icon ${
-                    event.status === 'completed' ? 'status-completed' :
-                    event.status === 'paused' ? 'status-paused' :
-                    'status-pending'
-                  }">
-                    ${
-                      event.status === 'completed' ? '✅' :
-                      event.status === 'paused' ? '<span style="color: red;">⏸</span>' :
-                      '<span style="color: red;">⚪</span>'
-                    }
-                  </span>
-                </td>
-              </tr>
-            `).join('') : `
-              <tr>
-                <td colspan="3" style="text-align: center;">No day of travel events available</td>
-              </tr>
-            `}
-          </tbody>
-        </table>
-        
+        <div class="grid-container">
+          <div class="grid-item">
+            <h2>Pre-Travel Events</h2>
+            <table class="events-table">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${preTravelEvents[flight.flightNumber] ? preTravelEvents[flight.flightNumber].map(event => `
+                  <tr>
+                    <td>${event.event}</td>
+                    <td>${event.time}</td>
+                    <td>
+                      <span class="status-icon ${
+                        event.status === 'completed' ? 'status-completed' :
+                        event.status === 'paused' ? 'status-paused' :
+                        'status-pending'
+                      }">
+                        ${
+                          event.status === 'completed' ? '✅' :
+                          event.status === 'paused' ? '<span style="color: red;">⏸</span>' :
+                          '<span style="color: red;">⚪</span>'
+                        }
+                      </span>
+                    </td>
+                  </tr>
+                `).join('') : `
+                  <tr>
+                    <td colspan="3" style="text-align: center;">No pre-travel events available</td>
+                  </tr>
+                `}
+              </tbody>
+            </table>
+          </div>
+          <div class="grid-item">
+            <h2>Day of Travel Events</h2>
+            <table class="events-table">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${dayOfTravelEvents[flight.flightNumber] ? dayOfTravelEvents[flight.flightNumber].map(event => `
+                  <tr>
+                    <td>${event.event}</td>
+                    <td>${event.time}</td>
+                    <td>
+                      <span class="status-icon ${
+                        event.status === 'completed' ? 'status-completed' :
+                        event.status === 'paused' ? 'status-paused' :
+                        'status-pending'
+                      }">
+                        ${
+                          event.status === 'completed' ? '✅' :
+                          event.status === 'paused' ? '<span style="color: red;">⏸</span>' :
+                          '<span style="color: red;">⚪</span>'
+                        }
+                      </span>
+                    </td>
+                  </tr>
+                `).join('') : `
+                  <tr>
+                    <td colspan="3" style="text-align: center;">No day of travel events available</td>
+                  </tr>
+                `}
+              </tbody>
+            </table>
+          </div>
+          <div class="grid-item"></div>
+          <div class="grid-item"></div>
+        </div>
         <a href="/flights" class="back-button">Back to Flights</a>
       </body>
     </html>
