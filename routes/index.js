@@ -182,8 +182,8 @@ router.get('/flights/:flightNumber', function(req, res, next) {
       <body>
         <h1>Flight Details</h1>
         <div class="flight-header">
-          <span><strong>Flight Number:</strong> ${flight.flightNumber}</span>
-          <span><strong>Airline:</strong> ${flight.airline} | <strong>Departure:</strong> ${flight.departure} | <strong>Destination:</strong> ${flight.destination}</span>
+          <span> ${flight.flightNumber}</span>
+          <span> ${flight.departure} -> ${flight.destination}</span>
         </div>
         <h2 style="text-align: center;">Pre-Travel Events</h2>
         <table class="events-table">
