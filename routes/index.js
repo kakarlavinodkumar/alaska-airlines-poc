@@ -313,7 +313,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
 
 
 // POST API to create a new rule for a specific flight
-router.post('/createrule/:flightNumber', function(req, res, next) {
+router.get('/createrule/:flightNumber', function(req, res, next) {
   const flightNumber = req.params.flightNumber;
 
   let html = `
