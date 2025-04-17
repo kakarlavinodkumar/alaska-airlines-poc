@@ -35,6 +35,19 @@ const preTravelEvents = {
     { event: 'checkIn', time: '4 hours before', status: 'pending' }
   ]
 };
+const dayOfTravelEvents = {
+  'AS100': [
+    { event: 'boardStart', time: '2 hours before', status: 'pending' }
+  ],
+  'AS200': [
+    { event: 'boardStart', time: '2 hours before', status: 'pending' }
+  ],
+  'AS300': [
+    { event: 'boardStart', time: '2 hours before', status: 'pending' }
+  ]
+};
+
+
 // GET API to get the list of flights
 router.get('/flights', function(req, res, next) {
 
