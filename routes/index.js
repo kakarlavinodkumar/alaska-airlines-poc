@@ -131,8 +131,17 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           h1 {
             text-align: center;
           }
+          .flight-header {
+            text-align: center;
+            margin: 20px 0;
+          }
+          .flight-header span {
+            display: block;
+            font-size: 18px;
+            margin: 5px 0;
+          }
           table {
-            width: 50%;
+            width: 80%;
             margin: 20px auto;
             border-collapse: collapse;
           }
@@ -172,24 +181,10 @@ router.get('/flights/:flightNumber', function(req, res, next) {
       </head>
       <body>
         <h1>Flight Details</h1>
-        <table>
-          <tr>
-            <th>Flight Number</th>
-            <td>${flight.flightNumber}</td>
-          </tr>
-          <tr>
-            <th>Airline</th>
-            <td>${flight.airline}</td>
-          </tr>
-          <tr>
-            <th>Departure</th>
-            <td>${flight.departure}</td>
-          </tr>
-          <tr>
-            <th>Destination</th>
-            <td>${flight.destination}</td>
-          </tr>
-        </table>
+        <div class="flight-header">
+          <span><strong>Flight Number:</strong> ${flight.flightNumber}</span>
+          <span><strong>Airline:</strong> ${flight.airline} | <strong>Departure:</strong> ${flight.departure} | <strong>Destination:</strong> ${flight.destination}</span>
+        </div>
         <h2 style="text-align: center;">Pre-Travel Events</h2>
         <table class="events-table">
           <thead>
