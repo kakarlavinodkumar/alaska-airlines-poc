@@ -445,3 +445,125 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
 
   res.send(html);
 });
+
+router.get('/createmessage/:flightNumber', function(req, res, next) {
+
+  const flightNumber = req.params.flightNumber;
+  const flight = flights.find(f => f.flightNumber === flightNumber);
+
+  if (!flight) {
+    return res.status(404).send('Flight not found');
+  }
+
+  let html = `
+    <html>
+      <head>
+        <title>Create Message</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+          }
+          h1 {
+            text-align: center;
+          }
+          form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+          }
+          label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+          }
+          input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+          }
+          .button-container {
+            display: flex;
+            justify-content: center;
+          }
+          button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+          }
+          button:hover {
+            background-color: #0056b3;
+          }
+          .success-message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+          }
+          .back-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+          }
+          .back-button {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+          }
+          .back-button:hover {
+            background-color: #5a6268;
+          }
+        </style>
+        <script>
+          function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const message = form.message.value.trim();
+
+            if (!message) {
+              alert('Message field is required!');
+              return;
+            }
+
+            // Clear form fields
+            form.reset();
+
+            // Display success message
+            const successMessage = document.getElementById('success-message');
+            successMessage.textContent = 'Message created successfully!';
+          }
+        </script>
+      </head>
+      <body>
+        <h1>Create Message for Flight ${flightNumber}</h1>
+        <form method="POST" onsubmit="handleSubmit(event)">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+          <div class="button-container">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+        <div class="back-button-container">
+          <a href="/flights/${flightNumber}" class="back-button">Back to Flight Details</a>
+        </div>
+        <div id="success-message" class="success-message"></div>
+      </body>
+    </html>
+  `;
+
+  res.send(html);
+});
