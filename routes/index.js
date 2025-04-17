@@ -362,11 +362,39 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
           button:hover {
             background-color: #0056b3;
           }
+          .success-message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+          }
         </style>
+        <script>
+          function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const trigger = form.trigger.value.trim();
+            const message = form.message.value.trim();
+            const dateRange = form.dateRange.value.trim();
+            const type = form.type.value.trim();
+
+            if (!trigger || !message || !dateRange || !type) {
+              alert('All fields are required!');
+              return;
+            }
+
+            // Clear form fields
+            form.reset();
+
+            // Display success message
+            const successMessage = document.getElementById('success-message');
+            successMessage.textContent = 'Rule created successfully!';
+          }
+        </script>
       </head>
       <body>
         <h1>Create Rule for Flight ${flightNumber}</h1>
-        <form method="POST" action="/createrule/${flightNumber}">
+        <form method="POST" onsubmit="handleSubmit(event)">
           <label for="trigger">Trigger</label>
           <select id="trigger" name="trigger" required>
             <option value="preorderFood">Preorder Food</option>
@@ -384,6 +412,7 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
           </select>
           <button type="submit">Submit</button>
         </form>
+        <div id="success-message" class="success-message"></div>
       </body>
     </html>
   `;
