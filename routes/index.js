@@ -151,6 +151,23 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           .events-table th {
             background-color: #e8f4f8;
           }
+          .back-button {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 10px 20px;
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+          .back-button:hover {
+            background-color: #0056b3;
+          }
         </style>
       </head>
       <body>
@@ -196,7 +213,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
             `}
           </tbody>
         </table>
-        <a href="/flights">Back to Flights</a>
+        <a href="/flights" class="back-button">Back to Flights</a>
       </body>
     </html>
   `;
