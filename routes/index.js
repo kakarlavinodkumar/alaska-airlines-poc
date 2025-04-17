@@ -370,6 +370,11 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
             font-weight: bold;
             margin-top: 20px;
           }
+          .back-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+          }
           .back-button {
             display: inline-block;
             padding: 5px 10px;
@@ -379,7 +384,6 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
             text-decoration: none;
             border-radius: 5px;
             font-size: 14px;
-            margin-top: 10px;
           }
           .back-button:hover {
             background-color: #5a6268;
@@ -430,7 +434,9 @@ router.get('/createrule/:flightNumber', function(req, res, next) {
             <button type="submit">Submit</button>
           </div>
         </form>
-        <a href="/flights/${flightNumber}" class="back-button">Back to Flight Details</a>
+        <div class="back-button-container">
+          <a href="/flights/${flightNumber}" class="back-button">Back to Flight Details</a>
+        </div>
         <div id="success-message" class="success-message"></div>
       </body>
     </html>
