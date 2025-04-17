@@ -221,9 +221,9 @@ router.get('/flights/:flightNumber', function(req, res, next) {
                     'status-pending'
                   }">
                     ${
-                      event.status === 'completed' ? '✔️' :
-                      event.status === 'paused' ? '⏸️' :
-                      '⚪'
+                      event.status === 'completed' ? '✅' :
+                      event.status === 'paused' ? '<span style="color: red;">⏸️</span>' :
+                      '<span style="color: red;">⚪</span>'
                     }
                   </span>
                 </td>
