@@ -248,6 +248,43 @@ router.get('/flights/:flightNumber', function(req, res, next) {
             `}
           </tbody>
         </table>
+
+        <h2 style="text-align: center;">Day of Travel Events</h2>
+        <table class="events-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Time</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${dayOfTravelEvents[flight.flightNumber] ? dayOfTravelEvents[flight.flightNumber].map(event => `
+              <tr>
+                <td>${event.event}</td>
+                <td>${event.time}</td>
+                <td>
+                  <span class="status-icon ${
+                    event.status === 'completed' ? 'status-completed' :
+                    event.status === 'paused' ? 'status-paused' :
+                    'status-pending'
+                  }">
+                    ${
+                      event.status === 'completed' ? '✅' :
+                      event.status === 'paused' ? '<span style="color: red;">⏸</span>' :
+                      '<span style="color: red;">⚪</span>'
+                    }
+                  </span>
+                </td>
+              </tr>
+            `).join('') : `
+              <tr>
+                <td colspan="3" style="text-align: center;">No day of travel events available</td>
+              </tr>
+            `}
+          </tbody>
+        </table>
+        
         <a href="/flights" class="back-button">Back to Flights</a>
       </body>
     </html>
