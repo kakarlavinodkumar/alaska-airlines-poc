@@ -186,7 +186,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
             gap: 20px;
             margin-top: 20px;
           }
-          .back-button, .create-rule-button {
+          .back-button, .create-rule-button, .create-message-button {
             display: inline-block;
             padding: 10px 20px;
             text-align: center;
@@ -198,7 +198,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           }
-          .back-button:hover, .create-rule-button:hover {
+          .back-button:hover, .create-rule-button:hover, .create-message-button:hover {
             background-color: #0056b3;
           }
           .status-icon {
@@ -303,6 +303,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
         <div class="button-container">
           <a href="/flights" class="back-button">Back to Flights</a>
           <a href="/createrule/${flight.flightNumber}" class="create-rule-button">Create New Rule</a>
+          <a href="/createmessage/${flight.flightNumber}" class="create-message-button">Create Message</a>
         </div>
       </body>
     </html>
