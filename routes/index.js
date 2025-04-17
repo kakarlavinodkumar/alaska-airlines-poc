@@ -147,7 +147,6 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           .grid-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, auto);
             gap: 20px;
             margin: 20px;
           }
@@ -181,10 +180,14 @@ router.get('/flights/:flightNumber', function(req, res, next) {
           .events-table th {
             background-color: #e8f4f8;
           }
-          .back-button {
-            display: block;
-            width: 200px;
-            margin: 30px auto;
+          .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+          }
+          .back-button, .create-rule-button {
+            display: inline-block;
             padding: 10px 20px;
             text-align: center;
             background-color: #007BFF;
@@ -195,7 +198,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
           }
-          .back-button:hover {
+          .back-button:hover, .create-rule-button:hover {
             background-color: #0056b3;
           }
           .status-icon {
@@ -296,10 +299,91 @@ router.get('/flights/:flightNumber', function(req, res, next) {
               </tbody>
             </table>
           </div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
         </div>
-        <a href="/flights" class="back-button">Back to Flights</a>
+        <div class="button-container">
+          <a href="/flights" class="back-button">Back to Flights</a>
+          <a href="/createrule/${flight.flightNumber}" class="create-rule-button">Create New Rule</a>
+        </div>
+      </body>
+    </html>
+  `;
+
+  res.send(html);
+});
+
+
+// POST API to create a new rule for a specific flight
+router.post('/createrule/:flightNumber', function(req, res, next) {
+  const flightNumber = req.params.flightNumber;
+
+  let html = `
+    <html>
+      <head>
+        <title>Create Rule</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+          }
+          h1 {
+            text-align: center;
+          }
+          form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+          }
+          label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+          }
+          input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+          }
+          button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+          }
+          button:hover {
+            background-color: #0056b3;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Create Rule for Flight ${flightNumber}</h1>
+        <form method="POST" action="/createrule/${flightNumber}">
+          <label for="trigger">Trigger</label>
+          <select id="trigger" name="trigger" required>
+            <option value="preorderFood">Preorder Food</option>
+            <option value="checkIn">Check-In</option>
+            <option value="boardStart">Boarding Start</option>
+          </select>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+          <label for="dateRange">Date Range</label>
+          <input type="text" id="dateRange" name="dateRange" placeholder="e.g., 6 days before" required />
+          <label for="type">Type</label>
+          <select id="type" name="type" required>
+            <option value="preTravel">Pre-Travel</option>
+            <option value="dayOfTravel">Day of Travel</option>
+          </select>
+          <button type="submit">Submit</button>
+        </form>
       </body>
     </html>
   `;
