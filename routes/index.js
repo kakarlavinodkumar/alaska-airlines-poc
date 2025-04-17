@@ -222,7 +222,7 @@ router.get('/flights/:flightNumber', function(req, res, next) {
                   }">
                     ${
                       event.status === 'completed' ? '✅' :
-                      event.status === 'paused' ? '<span style="color: red;">⏸️</span>' :
+                      event.status === 'paused' ? '<span style="color: red;">⏸</span>' :
                       '<span style="color: red;">⚪</span>'
                     }
                   </span>
